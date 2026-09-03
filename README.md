@@ -85,4 +85,4 @@ python src/evaluate.py --model merged/ --eval-data data/eval.jsonl
 
 ## Contact
 
-Dr. Lubna Aziz — engr.lubnaaziz@gmail.com — [Google Scholar](https://scholar.google.com/citations?user=Uu-CkiYAAAAJ)
+Dr. Lubna Aziz, engr.lubnaaziz@gmail.com, [Google Scholar](https://scholar.google.com/citations?user=Uu-CkiYAAAAJ)
