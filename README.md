@@ -5,6 +5,7 @@
 ### Domain-Adapt Open-Weight LLMs on a Single GPU
 
 [![CI](https://img.shields.io/github/actions/workflow/status/Lubnaaziz-28/llm-finetune-lora/ci.yml?logo=github&style=flat-square)]()
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue?logo=docker&logoColor=white)]()
 [![Tech](https://img.shields.io/badge/Tech-LoRA%2FQLoRA-F1C40F)]()
 [![Scale](https://img.shields.io/badge/Scale-7B_to_70B-2ECC71)]()
 [![Python](https://img.shields.io/badge/Python-3.10+-yellow?logo=python&logoColor=white)]()
