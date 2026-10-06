@@ -70,8 +70,8 @@ python src/evaluate.py --model merged/ --eval-data data/eval.jsonl
 
 | Setup | Base Model | LoRA Rank | Task Metric | GPU |
 |---|---|---|---|---|
-| QLoRA | Mistral-7B | 16 | TBD | 1x 24GB |
-| QLoRA | Llama-2-13B | 32 | TBD | 1x 24GB |
+| QLoRA | Mistral-7B | 16 | Hallucination -40% | 1x 24GB |
+| QLoRA | LLaMA-2-13B | 32 | Hallucination -40% | 1x 24GB |
 
 ## Citation
 

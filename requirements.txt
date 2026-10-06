@@ -1,8 +1,9 @@
-torch
-transformers
-peft
-trl
-bitsandbytes
-datasets
-accelerate
-wandb
+torch>=2.0
+transformers>=4.35
+datasets>=2.14
+peft>=0.7
+bitsandbytes>=0.41
+trl>=0.8
+numpy>=1.24
+pyyaml>=6.0
+accelerate>=0.24
