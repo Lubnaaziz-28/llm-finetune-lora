@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  train:
+    build: .
+    volumes:
+      - ./data:/app/data
+      - ./out:/app/out
+      - ./configs:/app/configs
+    environment:
+      - HF_HOME=/app/.cache/huggingface
+      - WANDB_MODE=offline
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
