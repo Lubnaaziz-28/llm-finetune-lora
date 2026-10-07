@@ -112,6 +112,38 @@ Raw results CSV: [`benchmarks/results.csv`](benchmarks/results.csv)
 }
 ```
 
+## Startup Cookbook
+
+**5 Use Cases, 5 Docker Commands** — Ready-to-run fine-tuning recipes for common startup AI needs.
+
+| Use Case | Description | Base Model | Est. Time | Est. Cost |
+|----------|-------------|------------|-----------|-----------|
+| [Support Chatbot](use-cases/support-chatbot) | Polite customer support agent | Mistral-7B-Instruct | 45 min | $1.50 |
+| [Code Generation](use-cases/code-generation) | Clean typed Python from NL | CodeLlama-7B-Instruct | 60 min | $2.00 |
+| [Domain QA (Legal)](use-cases/domain-qa) | Contract law Q&A | Mistral-7B-Instruct | 45 min | $1.50 |
+| [Sentiment Analysis](use-cases/sentiment-analysis) | 3-class classification | Mistral-7B-Instruct | 20 min | $0.70 |
+| [Instruction Following](use-cases/instruction-following) | Formatting/transform tasks | Mistral-7B-Instruct | 35 min | $1.20 |
+
+### Quickstart
+
+```bash
+# Pick a use case and run:
+docker compose -f use-cases/support-chatbot/docker-compose.yml up train
+
+# Merge & export GGUF for serving:
+docker compose -f use-cases/support-chatbot/docker-compose.yml --profile export up merge
+```
+
+### Full Documentation
+
+See [COOKBOOK.md](COOKBOOK.md) for detailed commands, expected outputs, and customization guide.
+
+### Validate All Configs
+
+```bash
+python validate_configs.py
+```
+
 ## Contact
 
 Dr. Lubna Aziz, engr.lubnaaziz@gmail.com, [Google Scholar](https://scholar.google.com/citations?user=Uu-CkiYAAAAJ)

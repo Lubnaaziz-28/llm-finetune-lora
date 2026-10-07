@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  train:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ../../use-cases/code-generation:/app/use-cases/code-generation
+      - ../../out:/app/out
+      - ../../configs:/app/configs
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+      - WANDB_MODE=offline
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: >
+      python src/train.py --config use-cases/code-generation/config.yaml
+
+  merge:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ../../use-cases/code-generation:/app/use-cases/code-generation
+      - ../../out:/app/out
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+    command: >
+      python src/merge_and_export.py --adapter use-cases/code-generation/out --base codellama/CodeLlama-7b-Instruct-hf --output use-cases/code-generation/merged --export-gguf
+    profiles: ["export"]
+
+  eval:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ../../use-cases/code-generation:/app/use-cases/code-generation
+      - ../../out:/app/out
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+    command: >
+      python src/evaluate.py --model use-cases/code-generation/merged --eval-data use-cases/code-generation/dataset.jsonl
+    profiles: ["eval"]

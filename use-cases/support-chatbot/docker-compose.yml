@@ -1,0 +1,52 @@
+version: "3.9"
+
+services:
+  train:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ../../use-cases/support-chatbot:/app/use-cases/support-chatbot
+      - ../../out:/app/out
+      - ../../configs:/app/configs
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+      - WANDB_MODE=offline
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    command: >
+      python src/train.py --config use-cases/support-chatbot/config.yaml
+
+  merge:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ../../use-cases/support-chatbot:/app/use-cases/support-chatbot
+      - ../../out:/app/out
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+    command: >
+      python src/merge_and_export.py --adapter use-cases/support-chatbot/out --base mistralai/Mistral-7B-Instruct-v0.2 --output use-cases/support-chatbot/merged --export-gguf
+    profiles: ["export"]
+
+  eval:
+    build:
+      context: ../..
+      dockerfile: Dockerfile
+    volumes:
+      - ../../use-cases/support-chatbot:/app/use-cases/support-chatbot
+      - ../../out:/app/out
+      - ~/.cache/huggingface:/root/.cache/huggingface
+    environment:
+      - HF_HOME=/root/.cache/huggingface
+    command: >
+      python src/evaluate.py --model use-cases/support-chatbot/merged --eval-data use-cases/support-chatbot/dataset.jsonl
+    profiles: ["eval"]
