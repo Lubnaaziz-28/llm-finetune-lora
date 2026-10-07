@@ -1,0 +1,4 @@
+model,dataset,hours,gpu_cost_usd,eval_score,hallucination_rate,gpu,run_id,timestamp,notes
+Mistral-7B-v0.3,medical_qa,6.8,5.44,0.812,0.162,NVIDIA-A100-40GB,bench-001,2025-10-01T08:00:00Z,QLoRA r=16 alpha=32, lr=2e-4, 3 epochs on 10k samples
+LLaMA-3-8B-Instruct,medical_qa,7.4,5.92,0.834,0.138,NVIDIA-A100-40GB,bench-002,2025-10-01T16:00:00Z,QLoRA r=16 alpha=32, lr=2e-4, 3 epochs on 10k samples
+Qwen-2.5-7B-Instruct,medical_qa,6.2,4.96,0.841,0.131,NVIDIA-A100-40GB,bench-003,2025-10-02T00:00:00Z,QLoRA r=16 alpha=32, lr=2e-4, 3 epochs on 10k samples
